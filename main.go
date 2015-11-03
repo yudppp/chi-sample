@@ -18,9 +18,18 @@ func main() {
 	// add routing
 	r.Get("/", apiIndex)
 
+	r.Route("/todo", func(r chi.Router) {
+		r.Get("/", getTodoList)
+	})
 	http.ListenAndServe(":3333", r)
 }
 
 func apiIndex(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("index page"))
+}
+
+var tasks = make(map[string]string, 0)
+
+func getTodoList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("get todo list"))
 }
